@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "ESNext",
+      "baseUrl": "./",  // Make sure the base URL points to the root directory
+      "paths": {
+        "@/*": ["resources/js/*"],  // Make sure paths match the aliases in vite.config.js
+        "@components/*": ["resources/js/components/*"],
+        "@composables/*": ["resources/js/composables/*"],
+        "@lib/*": ["resources/js/lib/*"],
+        "@utils/*": ["resources/js/lib/utils/*"],
+        "@ui/*": ["resources/js/components/ui/*"]
+      }
+    },
+    "include": [
+      "resources/js/**/*.js",
+      "resources/js/**/*.vue"
+    ]
+  }
