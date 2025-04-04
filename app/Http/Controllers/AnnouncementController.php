@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class DashboardController extends Controller
+class AnnouncementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Dashboard/index');
+        return Inertia::render('Dashboard/Index');
     }
 
     /**
@@ -63,3 +63,4 @@ class DashboardController extends Controller
         //
     }
 }
+

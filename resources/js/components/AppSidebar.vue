@@ -15,7 +15,7 @@ import {
 const items = [
   {
     title: "Dashboard",
-    url: "#",
+    url: "/dashboard",
     icon: LayoutGrid,
   },
   {
@@ -34,7 +34,7 @@ const items = [
     icon: CalendarDays,
   },
   {
-    title: "Announement",
+    title: "Announcement",
     url: "#",
     icon: Bell,
   },
