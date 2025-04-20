@@ -46,20 +46,20 @@ const getStatusClasses = (status: string, colors: Column['statusColors']) => {
       case 'active':
       case 'completed':
       case 'approved':
-        return 'bg-success text-white'
+        return 'bg-success text-text-white'
       case 'pending':
       case 'in progress':
       case 'in review':
-        return 'bg-warning text-white'
+        return 'bg-warning text-text-white'
       case 'inactive':
       case 'failed':
       case 'rejected':
-        return 'bg-error text-white'
+        return 'bg-error text-text-white'
       case 'draft':
       case 'info':
-        return 'bg-info text-white'
+        return 'bg-info text-text-white'
       default:
-        return 'bg-secondary-light text-white'
+        return 'bg-secondary-light text-text-white'
     }
   }
   return `${colors[status].bg} ${colors[status].text}`
@@ -115,8 +115,8 @@ const formatValue = (value: any, type: string = 'text') => {
   <div class="bg-surface rounded-lg shadow">
     <div class="overflow-x-auto">
       <div :style="{ maxHeight }" class="overflow-y-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-background sticky top-0">
+        <table class="min-w-full divide-y divide-table">
+          <thead class="bg-table-header sticky top-0">
             <tr>
               <th v-if="selectable" class="px-4 py-3 w-10">
                 <input 
@@ -131,7 +131,7 @@ const formatValue = (value: any, type: string = 'text') => {
                 v-for="column in columns"
                 :key="column.key"
                 class="px-6 py-3 text-left text-xs font-medium text-text-light uppercase tracking-wider"
-                :class="{ 'cursor-pointer hover:bg-gray-100': column.sortable }"
+                :class="{ 'cursor-pointer hover:bg-highlight': column.sortable }"
                 :style="column.width ? { width: column.width } : {}"
                 @click="handleSort(column)"
               >
@@ -144,7 +144,7 @@ const formatValue = (value: any, type: string = 'text') => {
               </th>
             </tr>
           </thead>
-          <tbody v-if="loading" class="bg-surface divide-y divide-gray-200">
+          <tbody v-if="loading" class="bg-surface divide-y divide-table">
             <tr>
               <td 
                 :colspan="selectable ? columns.length + 1 : columns.length"
@@ -160,7 +160,7 @@ const formatValue = (value: any, type: string = 'text') => {
               </td>
             </tr>
           </tbody>
-          <tbody v-else-if="data.length === 0" class="bg-surface divide-y divide-gray-200">
+          <tbody v-else-if="data.length === 0" class="bg-surface divide-y divide-table">
             <tr>
               <td 
                 :colspan="selectable ? columns.length + 1 : columns.length"
@@ -170,11 +170,11 @@ const formatValue = (value: any, type: string = 'text') => {
               </td>
             </tr>
           </tbody>
-          <tbody v-else class="bg-surface divide-y divide-gray-200">
+          <tbody v-else class="bg-surface divide-y divide-table">
             <tr 
               v-for="(row, index) in data" 
               :key="index" 
-              class="hover:bg-background transition-colors"
+              class="hover:bg-highlight transition-colors"
               :class="{ 'bg-primary-light bg-opacity-10': selectedRows.has(index) }"
               @click="emit('rowClick', row)"
             >

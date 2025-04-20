@@ -12,9 +12,9 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div class="bg-white rounded-lg shadow-md" :style="{ maxHeight }">
+  <div class="bg-card rounded-lg shadow-md" :style="{ maxHeight }">
     <div :class="padding">
-      <h3 v-if="title" class="text-lg font-medium mb-4">{{ title }}</h3>
+      <h3 v-if="title" class="text-lg font-medium mb-4 text-text">{{ title }}</h3>
       <slot></slot>
     </div>
   </div>

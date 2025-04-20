@@ -27,12 +27,12 @@ const handleLogout = () => {
 </script>
 
 <template>
-  <aside class="bg-primary text-white h-screen fixed left-0 w-64 flex flex-col">
+  <aside class="bg-sidebar text-text-white h-screen fixed left-0 w-64 flex flex-col">
     <div class="p-4 flex items-center">
       <img src="/src/assets/img/logo_heronfit.png" alt="HeronFit" class="h-20 mb-4">
-      <h1 class="mr-5 text-4xl font-bold">HeronFit</h1>
+      <h1 class="text-default mr-5 text-4xl font-bold">HeronFit</h1>
     </div>
-    <nav class="flex-1 overflow-y-auto">
+    <nav class="text-default flex-1 overflow-y-auto">
       <router-link
         v-for="item in navigation"
         :key="item.name"
@@ -46,7 +46,7 @@ const handleLogout = () => {
     </nav>
     <button 
       @click="handleLogout"
-      class="m-4 p-2 bg-primary-dark hover:bg-primary-light transition-colors rounded text-center flex items-center justify-center gap-2"
+      class="text-default m-4 p-2 bg-primary-dark hover:bg-primary-light transition-colors rounded text-center flex items-center justify-center gap-2"
     >
       <LogOut class="w-5 h-5" />
       Logout

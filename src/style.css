@@ -4,28 +4,53 @@
 
 :root {
   /* Primary Colors */
-  --color-primary: #4338ca;       /* Purple-ish blue used in headers */
-  --color-primary-light: #6366f1; /* Lighter version of primary */
-  --color-primary-dark: #3730a3;  /* Darker version of primary */
+  --color-primary: #2F27CE;
+  --color-primary-light: #6366f1;
+  --color-primary-dark: #3730a3;
 
   /* Secondary Colors */
-  --color-secondary: #64748b;     /* Gray used in secondary text */
-  --color-secondary-light: #94a3b8; /* Lighter gray */
-  --color-secondary-dark: #475569;  /* Darker gray */
+  --color-secondary: #64748b;
+  --color-secondary-light: #94a3b8;
+  --color-secondary-dark: #475569;
 
   /* Status Colors */
-  --color-success: #22c55e;       /* Green (not shown but standard for success) */
-  --color-warning: #f59e0b;       /* Amber (not shown but standard for warnings) */
-  --color-error: #ef4444;         /* Red (used in decline actions) */
-  --color-info: #3b82f6;          /* Blue (used in review actions) */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Status Badge Colors */
+  --color-pending-bg: #dbeafe;     /* Light blue background */
+  --color-pending-text: #1e40af;   /* Dark blue text */
+  --color-pending-yellow-bg: #fef9c3; /* Light yellow background */
+  --color-pending-yellow-text: #854d0e; /* Dark yellow text */
+  --color-verified-bg: #dcfce7;    /* Light green background */
+  --color-verified-text: #166534;  /* Dark green text */
+  --color-approved-bg: #dcfce7;    /* Light green background */
+  --color-approved-text: #166534;  /* Dark green text */
+  --color-declined-bg: #fee2e2;    /* Light red background */
+  --color-declined-text: #b91c1c;  /* Dark red text */
+  --color-unverified-bg: #fee2e2;  /* Light red background */
+  --color-unverified-text: #b91c1c;/* Dark red text */
+
+  /* Action Button Colors */
+  --color-review: #3b82f6;         /* Blue */
+  --color-decline: #ef4444;        /* Red */
 
   /* Background Colors */
-  --color-background: #f3f4f6;    /* Light gray background */
-  --color-surface: #ffffff;       /* White cards/surface areas */
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+  --color-sidebar: #3730a3;
+  --color-card: #FBFBFE;
+  --color-highlight: #eef2ff;
+  --color-table-border: #e5e7eb;
+  --color-table-header-bg: #ffffff;
 
   /* Text Colors */
-  --color-text: #1f2937;          /* Dark gray/black for main text */
-  --color-text-light: #6b7280;    /* Light gray for secondary text */
+  --color-text: #EAEAEA ;
+  --color-text-light: #6b7280;
+  --color-text-white: #ffffff;
+  --color-text-header: #ef4444;   /* Black for table headers */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -37,6 +62,7 @@
   @apply min-h-screen;
 }
 
+/* Primary Colors */
 .bg-primary { background-color: var(--color-primary); }
 .bg-primary-light { background-color: var(--color-primary-light); }
 .bg-primary-dark { background-color: var(--color-primary-dark); }
@@ -44,6 +70,7 @@
 .text-primary-light { color: var(--color-primary-light); }
 .text-primary-dark { color: var(--color-primary-dark); }
 
+/* Secondary Colors */
 .bg-secondary { background-color: var(--color-secondary); }
 .bg-secondary-light { background-color: var(--color-secondary-light); }
 .bg-secondary-dark { background-color: var(--color-secondary-dark); }
@@ -51,7 +78,36 @@
 .text-secondary-light { color: var(--color-secondary-light); }
 .text-secondary-dark { color: var(--color-secondary-dark); }
 
-/* Additional utility classes based on the dashboard */
+/* Status Badge Colors */
+.bg-pending { background-color: var(--color-pending-bg); }
+.text-pending { color: var(--color-pending-text); }
+.bg-pending-yellow { background-color: var(--color-pending-yellow-bg); }
+.text-pending-yellow { color: var(--color-pending-yellow-text); }
+.bg-verified { background-color: var(--color-verified-bg); }
+.text-verified { color: var(--color-verified-text); }
+.bg-approved { background-color: var(--color-approved-bg); }
+.text-approved { color: var(--color-approved-text); }
+.bg-declined { background-color: var(--color-declined-bg); }
+.text-declined { color: var(--color-declined-text); }
+.bg-unverified { background-color: var(--color-unverified-bg); }
+.text-unverified { color: var(--color-unverified-text); }
+
+/* Action Button Colors */
+.text-review { color: var(--color-review); }
+.text-decline { color: var(--color-decline); }
+
+/* Background & Surface Colors */
+.bg-page { background-color: var(--color-background); }
 .bg-surface { background-color: var(--color-surface); }
-.text-main { color: var(--color-text); }
-.text-muted { color: var(--color-text-light); }
+.bg-sidebar { background-color: var(--color-sidebar); }
+.bg-card { background-color: var(--color-card); }
+.bg-highlight { background-color: var(--color-highlight); }
+.border-table { border-color: var(--color-table-border); }
+.bg-table-header { background-color: var(--color-table-header-bg); }
+
+/* Text Colors */
+.text-default { color: var(--color-text); }
+.text-light { color: var(--color-text-light); }
+.text-white { color: var(--color-text-white); }
+.text-header { color: var(--color-text-header); }
+.text-success { color: var(--color-success); }

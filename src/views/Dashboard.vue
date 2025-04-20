@@ -77,7 +77,7 @@ const columns: Column[] = [
     label: 'Booking Status',
     type: 'status',
     statusColors: {
-      'Pending': { bg: 'bg-blue-100', text: 'text-blue-800' }
+      'Pending': { bg: 'bg-pending', text: 'text-pending' }
     }
   },
   { 
@@ -85,7 +85,7 @@ const columns: Column[] = [
     label: 'Ticket ID',
     type: 'status',
     statusColors: {
-      'Verified': { bg: 'bg-green-100', text: 'text-green-800' }
+      'Verified': { bg: 'bg-verified', text: 'text-verified' }
     }
   },
   { key: 'actions', label: 'Actions', type: 'actions' }
@@ -103,35 +103,35 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="p-6">
-    <h1 class="text-2xl font-bold text-indigo-600 mb-6">Admin Dashboard</h1>
+  <div class="p-6 bg-background">
+    <h1 class="text-4xl ml-5 font-bold text-primary mb-6">Admin Dashboard</h1>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-4 gap-4 mb-6">
-      <Card v-for="stat in stats" :key="stat.label" padding="p-4" class="bg-white rounded-lg shadow-sm">
+    <div class="grid grid-cols-4 gap-4 mb-6 ">
+      <Card v-for="stat in stats" :key="stat.label" padding="p-4">
         <div class="flex items-start space-x-4">
-          <div class="p-3 rounded-lg bg-indigo-100">
+          <div class="p-3 rounded-lg bg-primary/10">
             <component 
               :is="stat.icon" 
-              class="w-6 h-6 text-indigo-600"
+              class="w-6 h-6 text-primary"
             />
           </div>
           <div>
             <span class="block text-2xl font-semibold">{{ typeof stat.value === 'string' ? stat.value : stat.value.value }}</span>
-            <p class="text-gray-600 text-sm">{{ stat.label }}</p>
+            <p class="text-text-light text-sm">{{ stat.label }}</p>
           </div>
         </div>
       </Card>
     </div>
 
     <!-- Upcoming Sessions -->
-    <h2 class="text-xl font-semibold mb-4">Upcoming Sessions</h2>
+    <h2 class="text-xl font-semibold mb-4 text-text">Upcoming Sessions</h2>
     <div class="grid grid-cols-4 gap-4 mb-6">
       <Card v-for="session in sessions" :key="session.date" padding="p-4">
         <div>
           <p class="font-medium">{{ session.date }}</p>
-          <p class="text-gray-600">{{ session.time }}</p>
-          <p class="text-green-600 mt-2">{{ session.capacity }}</p>
+          <p class="text-text-light">{{ session.time }}</p>
+          <p class="text-success mt-2">{{ session.capacity }}</p>
         </div>
       </Card>
     </div>
@@ -139,7 +139,7 @@ onUnmounted(() => {
     <!-- Recent Bookings -->
     <div class="mb-6">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">Recent Bookings</h2>
+        <h2 class="text-xl font-semibold text-text">Recent Bookings</h2>
         <div class="flex gap-4">
           <select class="rounded-md border-gray-300">
             <option>Filter by Status</option>
@@ -154,8 +154,8 @@ onUnmounted(() => {
           max-height="300px"
         >
           <template #actions="{ row }">
-            <button class="text-blue-600 hover:text-blue-800 mr-2">Review</button>
-            <button class="text-red-600 hover:text-red-800">Decline</button>
+            <button class="text-review hover:text-review/80 mr-2">Review</button>
+            <button class="text-decline hover:text-decline/80">Decline</button>
           </template>
         </Table>
       </Card>
@@ -167,14 +167,14 @@ onUnmounted(() => {
       <Card title="User Management">
         <div class="space-y-4">
           <div class="flex justify-between items-center">
-            <span>View All Users</span>
-            <span class="font-semibold">{{ totalUsers }} users</span>
+            <span class="text-text">View All Users</span>
+            <span class="font-semibold text-text">{{ totalUsers }} users</span>
           </div>
           <div class="flex justify-between items-center">
-            <span>New Registrations (This Week)</span>
-            <span class="font-semibold">1,234 users</span>
+            <span class="text-text">New Registrations (This Week)</span>
+            <span class="font-semibold text-text">1,234 users</span>
           </div>
-          <button class="text-blue-600 hover:text-blue-800">View More →</button>
+          <button class="text-primary hover:text-primary-dark">View More →</button>
         </div>
       </Card>
 
@@ -182,14 +182,14 @@ onUnmounted(() => {
       <Card title="Schedule Management">
         <div class="space-y-4">
           <div class="flex justify-between items-center">
-            <span>Today's Sessions</span>
-            <span class="font-semibold">8 sessions</span>
+            <span class="text-text">Today's Sessions</span>
+            <span class="font-semibold text-text">8 sessions</span>
           </div>
           <div class="flex justify-between items-center">
-            <span>This Week's Bookings</span>
-            <span class="font-semibold">123 bookings</span>
+            <span class="text-text">This Week's Bookings</span>
+            <span class="font-semibold text-text">123 bookings</span>
           </div>
-          <button class="text-blue-600 hover:text-blue-800">View More →</button>
+          <button class="text-primary hover:text-primary-dark">View More →</button>
         </div>
       </Card>
 
@@ -197,14 +197,14 @@ onUnmounted(() => {
       <Card title="Recent Announcements">
         <div class="space-y-4">
           <div>
-            <h4 class="font-medium">Gym Closure Notice</h4>
-            <p class="text-sm text-gray-600">Sent 2 days ago</p>
+            <h4 class="font-medium text-text">Gym Closure Notice</h4>
+            <p class="text-sm text-text-light">Sent 2 days ago</p>
           </div>
           <div>
-            <h4 class="font-medium">Holiday Hours</h4>
-            <p class="text-sm text-gray-600">Draft</p>
+            <h4 class="font-medium text-text">Holiday Hours</h4>
+            <p class="text-sm text-text-light">Draft</p>
           </div>
-          <button class="text-blue-600 hover:text-blue-800">Manage Announcements →</button>
+          <button class="text-primary hover:text-primary-dark">Manage Announcements →</button>
         </div>
       </Card>
 
@@ -212,14 +212,14 @@ onUnmounted(() => {
       <Card title="Analytics Preview">
         <div class="space-y-4">
           <div>
-            <h4 class="font-medium">Peak Hours</h4>
-            <p class="text-lg font-semibold">3pm - 5pm</p>
+            <h4 class="font-medium text-text">Peak Hours</h4>
+            <p class="text-lg font-semibold text-text">3pm - 5pm</p>
           </div>
           <div>
-            <h4 class="font-medium">User Retention Rate</h4>
-            <p class="text-lg font-semibold">78%</p>
+            <h4 class="font-medium text-text">User Retention Rate</h4>
+            <p class="text-lg font-semibold text-text">78%</p>
           </div>
-          <button class="text-blue-600 hover:text-blue-800">View Analytics →</button>
+          <button class="text-primary hover:text-primary-dark">View Analytics →</button>
         </div>
       </Card>
     </div>
