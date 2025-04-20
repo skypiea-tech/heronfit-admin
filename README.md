@@ -34,11 +34,10 @@ To get started with this project, follow the steps below:
 
 ### 1. Clone the Repository
 ### 2. Insert your own Supabase DB in .env
--**example**
-VITE_SUPABASE_ANON_KEY= your-key-here
-VITE_SUPABASE_URL= your-url-here
-### 3. run <npm install> to install the dependencies
-### 4. run <npm run dev>
+**example**
+- VITE_SUPABASE_ANON_KEY= your-key-here
+- VITE_SUPABASE_URL= your-url-here
+### 3. run **npm install** to install the dependencies
+### 4. run **npm run dev**
 ### 5. Website accessible through http://localhost:5173/
-```bash
-git clone https://github.com/your-username/vue3-ts-tailwind-supabase.git
+
