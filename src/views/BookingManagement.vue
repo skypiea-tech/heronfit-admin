@@ -85,7 +85,7 @@ const columns: Column[] = [
           :data="bookings"
           max-height="400px"
         >
-          <template #actions="{ row }">
+          <template #actions>
             <button class="text-review hover:text-review/80 mr-2">Review</button>
             <button class="text-decline hover:text-decline/80">Decline</button>
           </template>
@@ -124,7 +124,7 @@ const columns: Column[] = [
             :data="bookings"
             max-height="400px"
           >
-            <template #actions="{ row }">
+            <template #actions>
               <button class="text-primary hover:text-primary-dark">View Details</button>
             </template>
           </Table>

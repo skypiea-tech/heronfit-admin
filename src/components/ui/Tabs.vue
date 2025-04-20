@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const props = defineProps<{
+defineProps<{
   tabs: { name: string; key: string }[]
   modelValue: string
 }>()
 
-const emit = defineEmits<{
+defineEmits<{
   (e: 'update:modelValue', value: string): void
 }>()
 </script>

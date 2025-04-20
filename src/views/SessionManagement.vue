@@ -64,7 +64,7 @@ const columns = [
             :data="sessions"
             max-height="400px"
           >
-            <template #actions="{ row }">
+            <template #actions>
               <button class="text-blue-600 hover:text-blue-800 mr-2">Edit</button>
               <button class="text-red-600 hover:text-red-800">Cancel</button>
             </template>

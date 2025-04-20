@@ -3,7 +3,6 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import Tabs from '../components/ui/Tabs.vue'
 import TabPanel from '../components/ui/TabPanel.vue'
 import Table from '../components/ui/Table.vue'
-import ActivityStatus from '../components/ui/ActivityStatus.vue'
 import { User } from '../models/User'
 import { UserController } from '../controllers/UserController'
 
@@ -83,7 +82,7 @@ onUnmounted(() => {
           :data="users"
           max-height="400px"
         >
-          <template #actions="{ row }">
+          <template #actions>
             <button 
               @click="openUserDetails"
               class="text-primary hover:text-primary-dark"

@@ -153,7 +153,7 @@ onUnmounted(() => {
           :data="bookings"
           max-height="300px"
         >
-          <template #actions="{ row }">
+          <template #actions>
             <button class="text-review hover:text-review/80 mr-2">Review</button>
             <button class="text-decline hover:text-decline/80">Decline</button>
           </template>
