@@ -32,7 +32,7 @@ const handleLogout = () => {
       <img src="/src/assets/img/logo_heronfit.png" alt="HeronFit" class="h-20 mb-4">
       <h1 class="text-default mr-5 text-4xl font-bold">HeronFit</h1>
     </div>
-    <nav class="text-default flex-1 overflow-y-auto">
+    <nav class="pl-2 text-default flex-1 overflow-y-auto">
       <router-link
         v-for="item in navigation"
         :key="item.name"

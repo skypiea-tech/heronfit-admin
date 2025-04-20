@@ -23,7 +23,7 @@ This follows the **MVC** pattern:
   - **Tailwind CSS** is used for styling, offering utility-first classes to design responsive, customizable layouts.
 
 - **Controller (C)**: 
-  - **TypeScript** and **Pinia** handle the logic for user interactions, form submissions, API calls, and display management.
+  - **TypeScript** handle the logic for user interactions, form submissions, API calls, and display management.
   - **Pinia** is used as the state management solution in Vue 3, providing a central store to manage and share the application's state across components.
 
 ---

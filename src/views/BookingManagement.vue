@@ -43,9 +43,9 @@ const columns: Column[] = [
     label: 'Booking Status',
     type: 'status',
     statusColors: {
-      'Pending': { bg: 'bg-yellow-100', text: 'text-yellow-800' },
-      'Approved': { bg: 'bg-green-100', text: 'text-green-800' },
-      'Declined': { bg: 'bg-red-100', text: 'text-red-800' }
+      'Pending': { bg: 'bg-pending', text: 'text-pending' },
+      'Approved': { bg: 'bg-verified', text: 'text-verified' },
+      'Declined': { bg: 'bg-declined', text: 'text-declined' }
     }
   },
   { 
@@ -53,8 +53,8 @@ const columns: Column[] = [
     label: 'Ticket Status',
     type: 'status',
     statusColors: {
-      'Verified': { bg: 'bg-green-100', text: 'text-green-800' },
-      'Unverified': { bg: 'bg-red-100', text: 'text-red-800' }
+      'Verified': { bg: 'bg-verified', text: 'text-verified' },
+      'Unverified': { bg: 'bg-unverified', text: 'text-unverified' }
     }
   },
   { key: 'actions', label: 'Actions', type: 'actions' }
@@ -63,7 +63,7 @@ const columns: Column[] = [
 
 <template>
   <div class="p-6">
-    <h1 class="text-2xl font-bold mb-6">Booking Management</h1>
+    <h1 class="text-2xl font-bold mb-6 text-primary">Booking Management</h1>
     
     <Tabs
       v-model="currentTab"
@@ -71,12 +71,12 @@ const columns: Column[] = [
     >
       <TabPanel name="dashboard" :selected-tab="currentTab">
         <div class="flex justify-between items-center mb-4">
-          <h2 class="text-lg font-semibold">Morning Session (8:00 am - 10:00 am)</h2>
+          <h2 class="text-lg font-semibold text-text">Morning Session (8:00 am - 10:00 am)</h2>
           <div class="flex gap-4">
-            <select class="rounded-md border-gray-300">
+            <select class="rounded-md border-table">
               <option>Filter by Status</option>
             </select>
-            <input type="date" class="rounded-md border-gray-300">
+            <input type="date" class="rounded-md border-table">
           </div>
         </div>
 
@@ -86,46 +86,46 @@ const columns: Column[] = [
           max-height="400px"
         >
           <template #actions="{ row }">
-            <button class="text-blue-600 hover:text-blue-800 mr-2">Review</button>
-            <button class="text-red-600 hover:text-red-800">Decline</button>
+            <button class="text-review hover:text-review/80 mr-2">Review</button>
+            <button class="text-decline hover:text-decline/80">Decline</button>
           </template>
         </Table>
       </TabPanel>
 
       <TabPanel name="verification" :selected-tab="currentTab">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="text-lg font-medium mb-4">Verification Settings</h3>
+        <div class="bg-surface p-6 rounded-lg shadow">
+          <h3 class="text-lg font-medium mb-4 text-text">Verification Settings</h3>
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span>Enable Automatic Verification</span>
-              <button class="bg-blue-600 text-white px-4 py-2 rounded">Configure</button>
+              <span class="text-text">Enable Automatic Verification</span>
+              <button class="bg-primary text-text-white px-4 py-2 rounded">Configure</button>
             </div>
           </div>
         </div>
       </TabPanel>
 
       <TabPanel name="settings" :selected-tab="currentTab">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="text-lg font-medium mb-4">Booking Settings</h3>
+        <div class="bg-surface p-6 rounded-lg shadow">
+          <h3 class="text-lg font-medium mb-4 text-text">Booking Settings</h3>
           <div class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700">Maximum Bookings per Session</label>
-              <input type="number" class="mt-1 block w-full rounded-md border-gray-300">
+              <label class="block text-sm font-medium text-text-light">Maximum Bookings per Session</label>
+              <input type="number" class="mt-1 block w-full rounded-md border-table">
             </div>
           </div>
         </div>
       </TabPanel>
 
       <TabPanel name="history" :selected-tab="currentTab">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="text-lg font-medium mb-4">Booking History</h3>
+        <div class="bg-surface p-6 rounded-lg shadow">
+          <h3 class="text-lg font-medium mb-4 text-text">Booking History</h3>
           <Table 
             :columns="columns" 
             :data="bookings"
             max-height="400px"
           >
             <template #actions="{ row }">
-              <button class="text-blue-600 hover:text-blue-800">View Details</button>
+              <button class="text-primary hover:text-primary-dark">View Details</button>
             </template>
           </Table>
         </div>

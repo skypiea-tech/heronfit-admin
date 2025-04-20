@@ -26,6 +26,10 @@
   --color-pending-yellow-text: #854d0e; /* Dark yellow text */
   --color-verified-bg: #dcfce7;    /* Light green background */
   --color-verified-text: #166534;  /* Dark green text */
+  --color-active-bg: #dcfce7;    /* Light green background */
+  --color-active-text: #166534;  /* Dark green text */
+  --color-inactive-bg: #fee2e2;  /* Light red background */
+  --color-inactive-text: #b91c1c;/* Dark red text */
   --color-approved-bg: #dcfce7;    /* Light green background */
   --color-approved-text: #166534;  /* Dark green text */
   --color-declined-bg: #fee2e2;    /* Light red background */
@@ -49,7 +53,7 @@
   /* Text Colors */
   --color-text: #EAEAEA ;
   --color-text-light: #6b7280;
-  --color-text-white: #ffffff;
+  --color-text-white: #EAEAEA;
   --color-text-header: #ef4444;   /* Black for table headers */
 
   font-synthesis: none;
@@ -66,7 +70,7 @@
 .bg-primary { background-color: var(--color-primary); }
 .bg-primary-light { background-color: var(--color-primary-light); }
 .bg-primary-dark { background-color: var(--color-primary-dark); }
-.text-primary { color: var(--color-primary); }
+.text-primary { color: var(--color-primary); }  
 .text-primary-light { color: var(--color-primary-light); }
 .text-primary-dark { color: var(--color-primary-dark); }
 
@@ -85,6 +89,10 @@
 .text-pending-yellow { color: var(--color-pending-yellow-text); }
 .bg-verified { background-color: var(--color-verified-bg); }
 .text-verified { color: var(--color-verified-text); }
+.bg-active { background-color: var(--color-verified-bg); }
+.text-active { color: var(--color-verified-text); }
+.bg-inactive { background-color: var(--color-declined-bg); }
+.text-inactive { color: var(--color-declined-text); }
 .bg-approved { background-color: var(--color-approved-bg); }
 .text-approved { color: var(--color-approved-text); }
 .bg-declined { background-color: var(--color-declined-bg); }
@@ -108,6 +116,6 @@
 /* Text Colors */
 .text-default { color: var(--color-text); }
 .text-light { color: var(--color-text-light); }
-.text-white { color: var(--color-text-white); }
+.text-lazy-white { color: var(--color-text-white); }
 .text-header { color: var(--color-text-header); }
 .text-success { color: var(--color-success); }

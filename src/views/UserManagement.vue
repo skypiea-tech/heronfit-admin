@@ -27,8 +27,8 @@ const columns = [
     label: 'Status',
     type: 'status' as const,
     statusColors: {
-      'Active': { bg: 'bg-green-100', text: 'text-green-800' },
-      'Inactive': { bg: 'bg-red-100', text: 'text-red-800' }
+      'Active': { bg: 'bg-active', text: 'text-active' },
+      'Inactive': { bg: 'bg-inactive', text: 'text-inactive' }
     }
   },
   { key: 'actions', label: 'Actions', type: 'actions' as const }
@@ -58,22 +58,22 @@ onUnmounted(() => {
   <div class="p-6">
     <div v-if="!showDetails">
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">User Management</h1>
-        <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+        <h1 class="text-2xl font-bold text-primary">User Management</h1>
+        <button class="bg-primary text-text-white px-4 py-2 rounded-md hover:bg-primary-dark">
           Add New User
         </button>
       </div>
 
-      <div class="bg-white rounded-lg shadow">
+      <div class="bg-surface rounded-lg shadow">
         <div class="p-4">
           <input 
             type="text" 
             placeholder="Search users..."
-            class="w-full rounded-md border-gray-300"
+            class="w-full rounded-md border-table"
           >
         </div>
         
-        <div v-if="loading" class="p-4 text-center text-gray-500">
+        <div v-if="loading" class="p-4 text-center text-text-light">
           Loading users...
         </div>
         
@@ -86,7 +86,7 @@ onUnmounted(() => {
           <template #actions="{ row }">
             <button 
               @click="openUserDetails"
-              class="text-blue-600 hover:text-blue-800"
+              class="text-primary hover:text-primary-dark"
             >
               View Details
             </button>
@@ -99,41 +99,50 @@ onUnmounted(() => {
       <div class="flex items-center mb-6">
         <button 
           @click="showDetails = false"
-          class="text-blue-600 hover:text-blue-800 mr-2"
+          class="text-primary hover:text-primary-dark mr-2"
         >
           ← Back
         </button>
-        <h1 class="text-2xl font-bold">Profile Details</h1>
+        <h1 class="text-2xl font-bold text-primary">Profile Details</h1>
       </div>
 
       <Tabs
         v-model="currentTab"
         :tabs="tabs"
+        class="mb-4"
       >
         <TabPanel name="profile" :selected-tab="currentTab">
-          <div class="bg-white rounded-lg shadow p-6">
+          <div class="bg-surface rounded-lg shadow p-6">
             <form class="space-y-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700">First Name</label>
-                <input type="text" class="mt-1 block w-full rounded-md border-gray-300">
+                <label class="block text-sm font-medium text-text-light">First Name</label>
+                <input type="text" class="mt-1 block w-full rounded-md border-table p-2" placeholder="John">
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">Last Name</label>
-                <input type="text" class="mt-1 block w-full rounded-md border-gray-300">
+                <label class="block text-sm font-medium text-text-light">Last Name</label>
+                <input type="text" class="mt-1 block w-full rounded-md border-table p-2" placeholder="John">
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" class="mt-1 block w-full rounded-md border-gray-300">
+                <label class="block text-sm font-medium text-text-light">Email</label>
+                <input type="email" class="mt-1 block w-full rounded-md border-table p-2" placeholder="john@example.com">
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">Phone</label>
-                <input type="tel" class="mt-1 block w-full rounded-md border-gray-300">
+                <label class="block text-sm font-medium text-text-light">Phone</label>
+                <input type="tel" class="mt-1 block w-full rounded-md border-table p-2" placeholder="0000000000">
+              </div>
+              <div class="pt-2">
+                <p class="text-sm text-text-light">User ID: 1234-567</p>
+                <p class="text-sm text-text-light">Registration Date: 2024-01-15</p>
+                <p class="text-sm text-text-light">Gender: Male</p>
+                <p class="text-sm text-text-light">Fitness Goal: Lose Weight</p>
+                <p class="text-sm text-text-light">Height: 175cm</p>
+                <p class="text-sm text-text-light">Weight: 75kg</p>
               </div>
               <div class="flex gap-4">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                <button type="submit" class="bg-primary text-text-white px-4 py-2 rounded-md hover:bg-primary-dark">
                   Save
                 </button>
-                <button type="button" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
+                <button type="button" class="bg-error text-text-white px-4 py-2 rounded-md hover:bg-error/80">
                   Delete
                 </button>
               </div>
@@ -142,37 +151,28 @@ onUnmounted(() => {
         </TabPanel>
 
         <TabPanel name="activity" :selected-tab="currentTab">
-          <div class="bg-white rounded-lg shadow p-6">
+          <div class="bg-surface rounded-lg shadow p-6">
             <h3 class="text-lg font-medium mb-4">Activity History</h3>
             <div class="space-y-4">
-              <div class="border-l-4 border-blue-500 pl-4">
-                <p class="text-sm text-gray-600">Last Session: October 15 2024</p>
-                <p class="text-sm text-gray-500">Status: Present</p>
+              <div class="border-l-4 border-primary pl-4">
+                <p class="text-sm text-text-light">Last Session: October 15 2024</p>
+                <p class="text-sm text-text-light">Status: Present</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4">
+                <p class="text-sm text-text-light">Last Session: October 19 2024</p>
+                <p class="text-sm text-text-light">Status: Present</p>
               </div>
             </div>
           </div>
         </TabPanel>
 
         <TabPanel name="security" :selected-tab="currentTab">
-          <div class="bg-white rounded-lg shadow p-6">
-            <h3 class="text-lg font-medium mb-4">Security Settings</h3>
-            <form class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Current Password</label>
-                <input type="password" class="mt-1 block w-full rounded-md border-gray-300">
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">New Password</label>
-                <input type="password" class="mt-1 block w-full rounded-md border-gray-300">
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Confirm New Password</label>
-                <input type="password" class="mt-1 block w-full rounded-md border-gray-300">
-              </div>
-              <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                Update Password
+          <div class="bg-surface rounded-lg shadow p-6">
+            <div class="flex justify-center">
+              <button type="button" class="bg-primary-light text-lazy-white px-8 py-2 rounded-md hover:bg-primary-dark">
+                Reset Password
               </button>
-            </form>
+            </div>
           </div>
         </TabPanel>
       </Tabs>
