@@ -1,3 +1,5 @@
+import { UserActivitySettings } from '../utils/UserActivitySettings';
+
 /**
  * Represents user activity status and related functionality
  */
@@ -5,16 +7,16 @@ export class UserActivity {
   /**
    * Calculates the activity status based on test_last_active timestamp
    * @param lastActive Last activity timestamp
-   * @returns 'Active' if within last hour, 'Inactive' otherwise
+   * @returns 'Active' if within inactivity timeout period, 'Inactive' otherwise
    */
   static calculateStatus(lastActive: string | null): string {
     if (!lastActive) return 'Inactive'
     
     const lastActiveTime = new Date(lastActive)
     const now = new Date()
-    const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000)
+    const timeoutThreshold = new Date(now.getTime() - UserActivitySettings.INACTIVITY_TIMEOUT_MS)
     
-    return lastActiveTime > oneHourAgo ? 'Active' : 'Inactive'
+    return lastActiveTime > timeoutThreshold ? 'Active' : 'Inactive'
   }
 
   /**

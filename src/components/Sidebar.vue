@@ -28,9 +28,9 @@ const handleLogout = () => {
 
 <template>
   <aside class="bg-primary text-white h-screen fixed left-0 w-64 flex flex-col">
-    <div class="p-4">
-      <img src="" alt="HeronFit" class="h-8 mb-4">
-      <h1 class="text-xl font-bold">HeronFit Admin</h1>
+    <div class="p-4 flex items-center">
+      <img src="/src/assets/img/logo_heronfit.png" alt="HeronFit" class="h-20 mb-4">
+      <h1 class="mr-5 text-4xl font-bold">HeronFit</h1>
     </div>
     <nav class="flex-1 overflow-y-auto">
       <router-link

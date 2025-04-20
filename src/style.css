@@ -4,28 +4,28 @@
 
 :root {
   /* Primary Colors */
-  --color-primary: #4338ca;
-  --color-primary-light: #6366f1;
-  --color-primary-dark: #3730a3;
+  --color-primary: #4338ca;       /* Purple-ish blue used in headers */
+  --color-primary-light: #6366f1; /* Lighter version of primary */
+  --color-primary-dark: #3730a3;  /* Darker version of primary */
 
   /* Secondary Colors */
-  --color-secondary: #64748b;
-  --color-secondary-light: #94a3b8;
-  --color-secondary-dark: #475569;
+  --color-secondary: #64748b;     /* Gray used in secondary text */
+  --color-secondary-light: #94a3b8; /* Lighter gray */
+  --color-secondary-dark: #475569;  /* Darker gray */
 
   /* Status Colors */
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-info: #3b82f6;
+  --color-success: #22c55e;       /* Green (not shown but standard for success) */
+  --color-warning: #f59e0b;       /* Amber (not shown but standard for warnings) */
+  --color-error: #ef4444;         /* Red (used in decline actions) */
+  --color-info: #3b82f6;          /* Blue (used in review actions) */
 
   /* Background Colors */
-  --color-background: #f3f4f6;
-  --color-surface: #ffffff;
+  --color-background: #f3f4f6;    /* Light gray background */
+  --color-surface: #ffffff;       /* White cards/surface areas */
 
   /* Text Colors */
-  --color-text: #1f2937;
-  --color-text-light: #6b7280;
+  --color-text: #1f2937;          /* Dark gray/black for main text */
+  --color-text-light: #6b7280;    /* Light gray for secondary text */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -50,3 +50,8 @@
 .text-secondary { color: var(--color-secondary); }
 .text-secondary-light { color: var(--color-secondary-light); }
 .text-secondary-dark { color: var(--color-secondary-dark); }
+
+/* Additional utility classes based on the dashboard */
+.bg-surface { background-color: var(--color-surface); }
+.text-main { color: var(--color-text); }
+.text-muted { color: var(--color-text-light); }
