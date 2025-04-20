@@ -6,7 +6,7 @@ export class UserActivitySettings {
    * Duration in milliseconds after which a user is considered inactive
    * Default: 2 hours
    */
-  static readonly INACTIVITY_TIMEOUT_MS = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+  static readonly INACTIVITY_TIMEOUT_MS = 2 /** hour*/ * 60 * 60 * 1000; // 2 hours in milliseconds
 
   /**
    * Converts milliseconds to a human-readable duration string
