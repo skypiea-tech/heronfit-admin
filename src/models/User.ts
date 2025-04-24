@@ -100,11 +100,7 @@ export class UserModel {
       if (error) throw error
 
       return data.map(user => {
-        const lastActivity = user.last_activity ? new Date(user.last_activity) : null
-        const now = new Date()
-        const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000)
-        
-        const status = lastActivity && lastActivity > oneHourAgo ? 'Active' : 'Inactive'
+        const status = UserModel.calculateStatus(user.last_activity)
         
         return {
           ...user,
@@ -120,9 +116,9 @@ export class UserModel {
   /**
    * Fetches a single user by their ID
    * @param id User ID
-   * @returns Promise<User | null> User data or null if not found
+   * @returns Promise<User & { status: string } | null> User data with status or null if not found
    */
-  static async getUserById(id: string): Promise<User | null> {
+  static async getUserById(id: string): Promise<(User & { status: string }) | null> {
     try {
       const { data, error } = await supabase
         .from('users')
@@ -131,7 +127,15 @@ export class UserModel {
         .single()
 
       if (error) throw error
-      return data
+      
+      if (data) {
+        return {
+          ...data,
+          status: UserModel.calculateStatus(data.last_activity)
+        }
+      }
+      
+      return null
     } catch (error) {
       console.error('Error fetching user:', error)
       return null
@@ -173,11 +177,7 @@ export class UserModel {
       if (error) throw error
 
       return data.map(user => {
-        const lastActivity = user.last_activity ? new Date(user.last_activity) : null
-        const now = new Date()
-        const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000)
-        
-        const status = lastActivity && lastActivity > oneHourAgo ? 'Active' : 'Inactive'
+        const status = UserModel.calculateStatus(user.last_activity)
         
         return {
           ...user,
@@ -195,7 +195,7 @@ export class UserModel {
    * @param lastActivity Last activity timestamp
    * @returns string Status ('Active' or 'Inactive')
    */
-  private static calculateStatus(lastActivity: string | null): string {
+  public static calculateStatus(lastActivity: string | null): string {
     if (!lastActivity) return 'Inactive'
     const lastActivityDate = new Date(lastActivity)
     const now = new Date()
