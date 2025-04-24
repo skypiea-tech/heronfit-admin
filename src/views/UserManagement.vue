@@ -166,7 +166,7 @@ onUnmounted(() => {
           <input 
             type="text" 
             placeholder="Search users..."
-            class="w-full rounded-md border-table p-2"
+            class="w-full rounded-md border border-table p-2"
             :value="searchQuery"
             @input="handleSearch"
           >
@@ -218,7 +218,7 @@ onUnmounted(() => {
                 <label class="block text-sm font-medium text-text-light">First Name</label>
                 <input 
                   type="text" 
-                  class="mt-1 block w-full rounded-md border-table p-2" 
+                  class="mt-1 block w-full rounded-md border border-table p-2" 
                   v-model="firstName"
                 >
               </div>
@@ -226,7 +226,7 @@ onUnmounted(() => {
                 <label class="block text-sm font-medium text-text-light">Last Name</label>
                 <input 
                   type="text" 
-                  class="mt-1 block w-full rounded-md border-table p-2" 
+                  class="mt-1 block w-full rounded-md border border-table p-2" 
                   v-model="lastName"
                 >
               </div>
@@ -234,7 +234,7 @@ onUnmounted(() => {
                 <label class="block text-sm font-medium text-text-light">Email</label>
                 <input 
                   type="email" 
-                  class="mt-1 block w-full rounded-md border-table p-2" 
+                  class="mt-1 block w-full rounded-md border border-table p-2" 
                   v-model="email"
                 >
               </div>
@@ -242,7 +242,7 @@ onUnmounted(() => {
                 <label class="block text-sm font-medium text-text-light">Phone</label>
                 <input 
                   type="tel" 
-                  class="mt-1 block w-full rounded-md border-table p-2" 
+                  class="mt-1 block w-full rounded-md border border-table p-2" 
                   v-model="phone"
                 >
               </div>

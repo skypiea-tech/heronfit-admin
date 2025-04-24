@@ -202,27 +202,4 @@ export class UserModel {
     const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000)
     return lastActivityDate > oneHourAgo ? 'Active' : 'Inactive'
   }
-
-  /**
-   * Calculates fuzzy match score between two strings
-   * @param str1 First string
-   * @param str2 Second string
-   * @returns number Match confidence (0-1)
-   */
-  private static calculateFuzzyMatch(str1: string, str2: string): number {
-    if (!str1 || !str2) return 0
-
-    // Check for substring match
-    if (str1.includes(str2) || str2.includes(str1)) {
-      return 0.8
-    }
-
-    // Check for similar characters
-    const set1 = new Set(str1.split(''))
-    const set2 = new Set(str2.split(''))
-    const intersection = new Set([...set1].filter(x => set2.has(x)))
-    const union = new Set([...set1, ...set2])
-    
-    return intersection.size / union.size
-  }
 }

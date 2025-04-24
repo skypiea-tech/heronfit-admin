@@ -54,15 +54,15 @@ const columns: Column[] = [
       <form class="space-y-4">
         <div>
           <label class="block text-sm font-medium text-gray-700">Title</label>
-          <input type="text" placeholder="Enter Announcement Title" class="mt-1 block w-full rounded-md border-gray-300">
+          <input type="text" placeholder="Enter Announcement Title" class="mt-1 block w-full rounded-md border border-table p-2">
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700">Message</label>
-          <textarea placeholder="Enter Announcement Message" rows="4" class="mt-1 block w-full rounded-md border-gray-300"></textarea>
+          <textarea placeholder="Enter Announcement Message" rows="4" class="mt-1 block w-full rounded-md border border-table p-2"></textarea>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700">Target Audience</label>
-          <select class="mt-1 block w-full rounded-md border-gray-300">
+          <select class="mt-1 block w-full rounded-md border border-table p-2">
             <option>All Users</option>
           </select>
         </div>

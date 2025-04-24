@@ -148,10 +148,10 @@ onUnmounted(() => {
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold text-text">Recent Bookings</h2>
         <div class="flex gap-4">
-          <select class="rounded-md border-gray-300">
+          <select class="rounded-md border border-table p-2">
             <option>Filter by Status</option>
           </select>
-          <input type="date" class="rounded-md border-gray-300">
+          <input type="date" class="rounded-md border border-table p-2">
         </div>
       </div>
       <Card>

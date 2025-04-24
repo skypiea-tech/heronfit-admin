@@ -73,10 +73,10 @@ const columns: Column[] = [
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-lg font-semibold text-text">Morning Session (8:00 am - 10:00 am)</h2>
           <div class="flex gap-4">
-            <select class="rounded-md border-table">
+            <select class="rounded-md border border-table p-2">
               <option>Filter by Status</option>
             </select>
-            <input type="date" class="rounded-md border-table">
+            <input type="date" class="rounded-md border border-table p-2">
           </div>
         </div>
 
@@ -110,7 +110,7 @@ const columns: Column[] = [
           <div class="space-y-4">
             <div>
               <label class="block text-sm font-medium text-text-light">Maximum Bookings per Session</label>
-              <input type="number" class="mt-1 block w-full rounded-md border-table">
+              <input type="number" class="mt-1 block w-full rounded-md border border-table p-2">
             </div>
           </div>
         </div>
