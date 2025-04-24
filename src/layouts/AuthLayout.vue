@@ -52,7 +52,9 @@ const handleSubmit = async () => {
   <div class="min-h-screen flex items-center justify-center bg-background">
     <div class="bg-surface p-8 rounded-lg shadow-xl w-96">
       <div class="flex justify-center mb-6">
-        <img src="" alt="HeronFit" class="h-16">
+        <div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center">
+          <img src="/src/assets/img/logo_heronfit.png" alt="HeronFit" class="h-16">
+        </div>
       </div>
       <h1 class="text-2xl font-bold mb-6 text-center text-text">HeronFit Admin Portal</h1>
       
@@ -81,7 +83,7 @@ const handleSubmit = async () => {
               v-model="formData.email"
               type="email" 
               placeholder="admin@heronfit.com"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
             >
           </div>
           <div>
@@ -90,7 +92,7 @@ const handleSubmit = async () => {
               v-model="formData.password"
               type="password" 
               placeholder="••••••••"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
             >
           </div>
         </template>
@@ -102,7 +104,7 @@ const handleSubmit = async () => {
               v-model="formData.firstName"
               type="text" 
               placeholder="Juan"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
             >
           </div>
           <div>
@@ -111,7 +113,7 @@ const handleSubmit = async () => {
               v-model="formData.lastName"
               type="text" 
               placeholder="Dela Cruz"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
             >
           </div>
           <div>
@@ -120,7 +122,7 @@ const handleSubmit = async () => {
               v-model="formData.email"
               type="email" 
               placeholder="j.dcruz@example.com"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
             >
           </div>
           <div>
@@ -129,7 +131,7 @@ const handleSubmit = async () => {
               v-model="formData.password"
               type="password" 
               placeholder="••••••••"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
             >
           </div>
           <div>
@@ -138,7 +140,7 @@ const handleSubmit = async () => {
               v-model="formData.confirmPassword"
               type="password" 
               placeholder="••••••••"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
             >
           </div>
         </template>
