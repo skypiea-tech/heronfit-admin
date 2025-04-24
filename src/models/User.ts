@@ -13,8 +13,8 @@ export interface User {
   gender: string | null
   weight: string | null
   height: string | null
-  goal: string | null
-  contact: string | null
+  fitness_goal: string | null
+  phone: string | null
   has_session: boolean | null
   last_activity: string | null
   test_last_active: string | null
@@ -115,5 +115,114 @@ export class UserModel {
       console.error('Error fetching users:', error)
       return []
     }
+  }
+
+  /**
+   * Fetches a single user by their ID
+   * @param id User ID
+   * @returns Promise<User | null> User data or null if not found
+   */
+  static async getUserById(id: string): Promise<User | null> {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', id)
+        .single()
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error('Error fetching user:', error)
+      return null
+    }
+  }
+
+  /**
+   * Deletes a user from the database
+   * @param id User ID
+   * @returns Promise with the deletion result
+   */
+  static async deleteUser(id: string) {
+    try {
+      const { error } = await supabase
+        .from('users')
+        .delete()
+        .eq('id', id)
+
+      return { error }
+    } catch (error) {
+      console.error('Error deleting user:', error)
+      return { error }
+    }
+  }
+
+  /**
+   * Searches users by name or email
+   * @param query Search query string
+   * @returns Promise<Array<User & { status: string }>> List of matching users with activity status
+   */
+  static async searchUsers(query: string): Promise<Array<User & { status: string }>> {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .or(`first_name.ilike.%${query}%,last_name.ilike.%${query}%,email_address.ilike.%${query}%`)
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+
+      return data.map(user => {
+        const lastActivity = user.last_activity ? new Date(user.last_activity) : null
+        const now = new Date()
+        const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000)
+        
+        const status = lastActivity && lastActivity > oneHourAgo ? 'Active' : 'Inactive'
+        
+        return {
+          ...user,
+          status
+        }
+      })
+    } catch (error) {
+      console.error('Error searching users:', error)
+      return []
+    }
+  }
+
+  /**
+   * Calculates the status of a user based on their last activity
+   * @param lastActivity Last activity timestamp
+   * @returns string Status ('Active' or 'Inactive')
+   */
+  private static calculateStatus(lastActivity: string | null): string {
+    if (!lastActivity) return 'Inactive'
+    const lastActivityDate = new Date(lastActivity)
+    const now = new Date()
+    const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000)
+    return lastActivityDate > oneHourAgo ? 'Active' : 'Inactive'
+  }
+
+  /**
+   * Calculates fuzzy match score between two strings
+   * @param str1 First string
+   * @param str2 Second string
+   * @returns number Match confidence (0-1)
+   */
+  private static calculateFuzzyMatch(str1: string, str2: string): number {
+    if (!str1 || !str2) return 0
+
+    // Check for substring match
+    if (str1.includes(str2) || str2.includes(str1)) {
+      return 0.8
+    }
+
+    // Check for similar characters
+    const set1 = new Set(str1.split(''))
+    const set2 = new Set(str2.split(''))
+    const intersection = new Set([...set1].filter(x => set2.has(x)))
+    const union = new Set([...set1, ...set2])
+    
+    return intersection.size / union.size
   }
 }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import Card from '../components/ui/Card.vue'
 import Table from '../components/ui/Table.vue'
 import type { Column } from '../components/ui/Table.vue'
@@ -91,6 +92,12 @@ const columns: Column[] = [
   { key: 'actions', label: 'Actions', type: 'actions' }
 ]
 
+const router = useRouter()
+
+const navigateTo = (route: string) => {
+  router.push(`/dashboard/${route}`)
+}
+
 onMounted(() => {
   DashboardController.startUserCountUpdate((count) => {
     totalUsers.value = count
@@ -174,7 +181,12 @@ onUnmounted(() => {
             <span class="text-text">New Registrations (This Week)</span>
             <span class="font-semibold text-text">1,234 users</span>
           </div>
-          <button class="text-primary hover:text-primary-dark">View More →</button>
+          <button 
+            @click="navigateTo('users')"
+            class="text-primary hover:text-primary-dark"
+          >
+            View More →
+          </button>
         </div>
       </Card>
 
@@ -189,7 +201,12 @@ onUnmounted(() => {
             <span class="text-text">This Week's Bookings</span>
             <span class="font-semibold text-text">123 bookings</span>
           </div>
-          <button class="text-primary hover:text-primary-dark">View More →</button>
+          <button 
+            @click="navigateTo('sessions')"
+            class="text-primary hover:text-primary-dark"
+          >
+            View More →
+          </button>
         </div>
       </Card>
 
@@ -204,7 +221,12 @@ onUnmounted(() => {
             <h4 class="font-medium text-text">Holiday Hours</h4>
             <p class="text-sm text-text-light">Draft</p>
           </div>
-          <button class="text-primary hover:text-primary-dark">Manage Announcements →</button>
+          <button 
+            @click="navigateTo('announcements')"
+            class="text-primary hover:text-primary-dark"
+          >
+            Manage Announcements →
+          </button>
         </div>
       </Card>
 
@@ -219,7 +241,12 @@ onUnmounted(() => {
             <h4 class="font-medium text-text">User Retention Rate</h4>
             <p class="text-lg font-semibold text-text">78%</p>
           </div>
-          <button class="text-primary hover:text-primary-dark">View Analytics →</button>
+          <button 
+            @click="navigateTo('analytics')"
+            class="text-primary hover:text-primary-dark"
+          >
+            View Analytics →
+          </button>
         </div>
       </Card>
     </div>

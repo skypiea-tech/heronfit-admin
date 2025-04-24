@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import Tabs from '../components/ui/Tabs.vue'
 import TabPanel from '../components/ui/TabPanel.vue'
 import Table from '../components/ui/Table.vue'
@@ -10,6 +10,48 @@ const showDetails = ref(false)
 const currentTab = ref('profile')
 const users = ref<(User & { status: string })[]>([])
 const loading = ref(true)
+const selectedUser = ref<User | null>(null)
+const loadingUserDetails = ref(false)
+const savingUser = ref(false)
+const deletingUser = ref(false)
+const searchQuery = ref('')
+
+// Computed properties for form fields
+const firstName = computed({
+  get: () => selectedUser.value?.first_name ?? '',
+  set: (value: string) => {
+    if (selectedUser.value) {
+      selectedUser.value = { ...selectedUser.value, first_name: value }
+    }
+  }
+})
+
+const lastName = computed({
+  get: () => selectedUser.value?.last_name ?? '',
+  set: (value: string) => {
+    if (selectedUser.value) {
+      selectedUser.value = { ...selectedUser.value, last_name: value }
+    }
+  }
+})
+
+const email = computed({
+  get: () => selectedUser.value?.email_address ?? '',
+  set: (value: string) => {
+    if (selectedUser.value) {
+      selectedUser.value = { ...selectedUser.value, email_address: value }
+    }
+  }
+})
+
+const phone = computed({
+  get: () => selectedUser.value?.phone ?? '',
+  set: (value: string) => {
+    if (selectedUser.value) {
+      selectedUser.value = { ...selectedUser.value, phone: value }
+    }
+  }
+})
 
 const tabs = [
   { name: 'Profile', key: 'profile' },
@@ -38,8 +80,64 @@ const updateUsers = (updatedUsers: (User & { status: string })[]) => {
   loading.value = false
 }
 
-const openUserDetails = () => {
-  showDetails.value = true
+const openUserDetails = async (userId: string) => {
+  loadingUserDetails.value = true
+  try {
+    const userData = await UserController.getUserById(userId)
+    if (userData) {
+      selectedUser.value = userData
+      showDetails.value = true
+    }
+  } catch (error) {
+    console.error('Error loading user details:', error)
+  } finally {
+    loadingUserDetails.value = false
+  }
+}
+
+const handleSave = async () => {
+  if (!selectedUser.value?.id) return
+
+  savingUser.value = true
+  try {
+    const updatedUser = await UserController.updateUser(selectedUser.value.id, {
+      first_name: selectedUser.value.first_name,
+      last_name: selectedUser.value.last_name,
+      email_address: selectedUser.value.email_address,
+      phone: selectedUser.value.phone
+    })
+    
+    if (updatedUser) {
+      selectedUser.value = updatedUser
+    }
+  } catch (error) {
+    console.error('Error saving user:', error)
+  } finally {
+    savingUser.value = false
+  }
+}
+
+const handleDelete = async () => {
+  if (!selectedUser.value?.id || !confirm('Are you sure you want to delete this user?')) return
+
+  deletingUser.value = true
+  try {
+    const success = await UserController.deleteUser(selectedUser.value.id)
+    if (success) {
+      showDetails.value = false
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error)
+  } finally {
+    deletingUser.value = false
+  }
+}
+
+const handleSearch = (event: Event) => {
+  const query = (event.target as HTMLInputElement).value
+  searchQuery.value = query
+  loading.value = true
+  UserController.searchUsers(query, updateUsers)
 }
 
 onMounted(() => {
@@ -68,7 +166,9 @@ onUnmounted(() => {
           <input 
             type="text" 
             placeholder="Search users..."
-            class="w-full rounded-md border-table"
+            class="w-full rounded-md border-table p-2"
+            :value="searchQuery"
+            @input="handleSearch"
           >
         </div>
         
@@ -82,12 +182,13 @@ onUnmounted(() => {
           :data="users"
           max-height="400px"
         >
-          <template #actions>
+          <template #actions="{ row }">
             <button 
-              @click="openUserDetails"
+              @click="openUserDetails(row.id)"
               class="text-primary hover:text-primary-dark"
+              :disabled="loadingUserDetails"
             >
-              View Details
+              {{ loadingUserDetails ? 'Loading...' : 'View Details' }}
             </button>
           </template>
         </Table>
@@ -112,37 +213,62 @@ onUnmounted(() => {
       >
         <TabPanel name="profile" :selected-tab="currentTab">
           <div class="bg-surface rounded-lg shadow p-6">
-            <form class="space-y-4">
+            <form class="space-y-4" @submit.prevent="handleSave">
               <div>
                 <label class="block text-sm font-medium text-text-light">First Name</label>
-                <input type="text" class="mt-1 block w-full rounded-md border-table p-2" placeholder="John">
+                <input 
+                  type="text" 
+                  class="mt-1 block w-full rounded-md border-table p-2" 
+                  v-model="firstName"
+                >
               </div>
               <div>
                 <label class="block text-sm font-medium text-text-light">Last Name</label>
-                <input type="text" class="mt-1 block w-full rounded-md border-table p-2" placeholder="John">
+                <input 
+                  type="text" 
+                  class="mt-1 block w-full rounded-md border-table p-2" 
+                  v-model="lastName"
+                >
               </div>
               <div>
                 <label class="block text-sm font-medium text-text-light">Email</label>
-                <input type="email" class="mt-1 block w-full rounded-md border-table p-2" placeholder="john@example.com">
+                <input 
+                  type="email" 
+                  class="mt-1 block w-full rounded-md border-table p-2" 
+                  v-model="email"
+                >
               </div>
               <div>
                 <label class="block text-sm font-medium text-text-light">Phone</label>
-                <input type="tel" class="mt-1 block w-full rounded-md border-table p-2" placeholder="0000000000">
+                <input 
+                  type="tel" 
+                  class="mt-1 block w-full rounded-md border-table p-2" 
+                  v-model="phone"
+                >
               </div>
               <div class="pt-2">
-                <p class="text-sm text-text-light">User ID: 1234-567</p>
-                <p class="text-sm text-text-light">Registration Date: 2024-01-15</p>
-                <p class="text-sm text-text-light">Gender: Male</p>
-                <p class="text-sm text-text-light">Fitness Goal: Lose Weight</p>
-                <p class="text-sm text-text-light">Height: 175cm</p>
-                <p class="text-sm text-text-light">Weight: 75kg</p>
+                <p class="text-sm text-text-light">User ID: {{ selectedUser?.id }}</p>
+                <p class="text-sm text-text-light">Registration Date: {{ selectedUser?.created_at }}</p>
+                <p class="text-sm text-text-light">Gender: {{ selectedUser?.gender }}</p>
+                <p class="text-sm text-text-light">Fitness Goal: {{ selectedUser?.fitness_goal }}</p>
+                <p class="text-sm text-text-light">Height: {{ selectedUser?.height }}cm</p>
+                <p class="text-sm text-text-light">Weight: {{ selectedUser?.weight }}kg</p>
               </div>
               <div class="flex gap-4">
-                <button type="submit" class="bg-primary text-text-white px-4 py-2 rounded-md hover:bg-primary-dark">
-                  Save
+                <button 
+                  type="submit" 
+                  class="bg-primary text-text-white px-4 py-2 rounded-md hover:bg-primary-dark"
+                  :disabled="savingUser"
+                >
+                  {{ savingUser ? 'Saving...' : 'Save' }}
                 </button>
-                <button type="button" class="bg-error text-text-white px-4 py-2 rounded-md hover:bg-error/80">
-                  Delete
+                <button 
+                  type="button" 
+                  class="bg-error text-text-white px-4 py-2 rounded-md hover:bg-error/80"
+                  :disabled="deletingUser"
+                  @click="handleDelete"
+                >
+                  {{ deletingUser ? 'Deleting...' : 'Delete' }}
                 </button>
               </div>
             </form>
