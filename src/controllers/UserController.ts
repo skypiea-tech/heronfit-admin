@@ -2,6 +2,11 @@ import { UserModel, User } from '../models/User'
 import { UserActivity } from '../models/UserActivity'
 import { RealtimeUpdate } from '../utils/RealtimeUpdate'
 
+interface SortOptions {
+  field: string
+  direction: 'asc' | 'desc'
+}
+
 /**
  * Handles all user management operations
  */
@@ -9,6 +14,9 @@ export class UserController {
   private static readonly UPDATE_KEY = 'user-list'
   private static users: (User & { status: string })[] = []
   private static searchTimeout: number | null = null
+  private static sortOptions: SortOptions = { field: 'created_at', direction: 'desc' }
+  private static searchQuery: string = ''
+  private static updateCallback: ((users: (User & { status: string })[]) => void) | null = null
 
   /**
    * Fetches all users with their activity status
@@ -36,9 +44,11 @@ export class UserController {
    * @param intervalMs Update interval in milliseconds
    */
   static startUserListUpdate(callback: (users: (User & { status: string })[]) => void, intervalMs?: number) {
+    this.updateCallback = callback
+    
     const updateUserList = async () => {
       await this.fetchUsers()
-      callback(this.users)
+      this.applyFiltersAndSorting()
     }
 
     RealtimeUpdate.startUpdate(this.UPDATE_KEY, updateUserList, intervalMs)
@@ -83,6 +93,7 @@ export class UserController {
     try {
       const updatedUser = await UserModel.updateUser(id, userData)
       await this.fetchUsers() // Refresh the users list
+      this.applyFiltersAndSorting()
       return updatedUser
     } catch (error) {
       console.error('Error updating user:', error)
@@ -100,6 +111,7 @@ export class UserController {
       const { error } = await UserModel.deleteUser(id)
       if (error) throw error
       await this.fetchUsers() // Refresh the users list
+      this.applyFiltersAndSorting()
       return true
     } catch (error) {
       console.error('Error deleting user:', error)
@@ -119,10 +131,11 @@ export class UserController {
         clearTimeout(this.searchTimeout)
       }
 
+      this.searchQuery = query
+
       // If query is empty, show all users
       if (!query.trim()) {
-        await this.fetchUsers()
-        callback(this.users)
+        this.applyFiltersAndSorting()
         return
       }
 
@@ -130,11 +143,71 @@ export class UserController {
       this.searchTimeout = window.setTimeout(async () => {
         const searchResults = await UserModel.searchUsers(query)
         this.users = searchResults
-        callback(this.users)
+        this.applyFiltersAndSorting()
       }, 300) // 300ms debounce
     } catch (error) {
       console.error('Error searching users:', error)
       callback([])
     }
+  }
+
+  /**
+   * Sets the sorting options for the user list
+   * @param options Sorting options
+   */
+  static setSortOptions(options: SortOptions) {
+    this.sortOptions = options
+    this.applyFiltersAndSorting()
+  }
+
+  /**
+   * Applies current filters and sorting to the user list
+   */
+  private static applyFiltersAndSorting() {
+    if (!this.updateCallback) return
+
+    let processedUsers = [...this.users]
+    
+    // Apply search filter if there's a search query
+    if (this.searchQuery.trim()) {
+      processedUsers = processedUsers.filter(user => {
+        const searchableFields = [
+          user.first_name,
+          user.last_name,
+          user.email_address,
+          user.status
+        ].filter(Boolean) as string[]
+        
+        return searchableFields.some(field => 
+          field.toLowerCase().includes(this.searchQuery.toLowerCase())
+        )
+      })
+    }
+    
+    // Apply sorting
+    processedUsers = this.sortUsers(processedUsers)
+    
+    // Call the callback with the processed users
+    this.updateCallback(processedUsers)
+  }
+
+  /**
+   * Sorts users based on the current sort options
+   * @param users Users to sort
+   * @returns Sorted users
+   */
+  private static sortUsers(users: (User & { status: string })[]): (User & { status: string })[] {
+    return [...users].sort((a, b) => {
+      const aValue = a[this.sortOptions.field as keyof User]
+      const bValue = b[this.sortOptions.field as keyof User]
+      
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        return this.sortOptions.direction === 'asc' 
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue)
+      }
+      
+      return 0
+    })
   }
 } 

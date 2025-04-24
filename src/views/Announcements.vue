@@ -1,3 +1,12 @@
+<!--
+  Announcements.vue
+  Purpose: Management interface for system-wide announcements and notifications
+  Features:
+  - Create and manage announcements
+  - Schedule announcements
+  - Target specific user groups
+  - Announcement history tracking
+-->
 <script setup lang="ts">
 import { ref } from 'vue'
 import Card from '../components/ui/Card.vue'

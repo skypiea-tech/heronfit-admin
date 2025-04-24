@@ -1,3 +1,12 @@
+<!--
+  SessionManagement.vue
+  Purpose: Interface for managing fitness training sessions
+  Features:
+  - Create and manage training sessions
+  - Assign trainers to sessions
+  - Track session attendance
+  - Session scheduling and calendar management
+-->
 <script setup lang="ts">
 import { ref } from 'vue'
 import Card from '../components/ui/Card.vue'

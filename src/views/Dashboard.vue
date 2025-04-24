@@ -1,3 +1,12 @@
+<!--
+  Dashboard.vue
+  Purpose: Main administrative dashboard interface
+  Features:
+  - Overview of key metrics and statistics
+  - Quick access to important administrative functions
+  - System status and monitoring
+  - Recent activity feed
+-->
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'

@@ -1,3 +1,11 @@
+<!--
+  LoadingScreen.vue
+  Purpose: Global loading state component
+  Features:
+  - Displays during data fetching operations
+  - Provides visual feedback for async operations
+  - Maintains consistent loading UI across the application
+-->
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'

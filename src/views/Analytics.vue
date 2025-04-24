@@ -1,3 +1,13 @@
+<!--
+  Analytics.vue
+  Purpose: Data visualization and analytics dashboard
+  Features:
+  - Business metrics and KPIs
+  - User engagement statistics
+  - Revenue tracking
+  - Performance analytics
+  - Custom report generation
+-->
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import Card from '../components/ui/Card.vue'

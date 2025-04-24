@@ -1,3 +1,12 @@
+<!--
+  BookingManagement.vue
+  Purpose: Interface for managing fitness class bookings and appointments
+  Features:
+  - View and manage class bookings
+  - Schedule management
+  - Booking status tracking
+  - Class capacity monitoring
+-->
 <script setup lang="ts">
 import { ref } from 'vue'
 import Tabs from '../components/ui/Tabs.vue'

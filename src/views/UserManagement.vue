@@ -1,8 +1,19 @@
+<!--
+  UserManagement.vue
+  Purpose: Main user management interface for administrators
+  Features:
+  - User listing with search and sort functionality
+  - Detailed user profile view with tabs (Profile, Activity, Security)
+  - User information editing capabilities
+  - User deletion functionality
+  - Real-time user list updates (30-second intervals)
+-->
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 import Tabs from '../components/ui/Tabs.vue'
 import TabPanel from '../components/ui/TabPanel.vue'
 import Table from '../components/ui/Table.vue'
+import Dropdown from '../components/ui/Dropdown.vue'
 import { User } from '../models/User'
 import { UserController } from '../controllers/UserController'
 
@@ -15,6 +26,8 @@ const loadingUserDetails = ref(false)
 const savingUser = ref(false)
 const deletingUser = ref(false)
 const searchQuery = ref('')
+const sortField = ref('created_at')
+const sortDirection = ref<'asc' | 'desc'>('desc')
 
 // Computed properties for form fields
 const firstName = computed({
@@ -73,6 +86,19 @@ const columns = [
     }
   },
   { key: 'actions', label: 'Actions', type: 'actions' as const }
+]
+
+const sortOptions = [
+  { label: 'First Name', value: 'first_name' },
+  { label: 'Last Name', value: 'last_name' },
+  { label: 'Email', value: 'email_address' },
+  { label: 'Account Created', value: 'created_at' },
+  { label: 'Status', value: 'status' }
+]
+
+const directionOptions = [
+  { label: 'Ascending', value: 'asc' },
+  { label: 'Descending', value: 'desc' }
 ]
 
 const updateUsers = (updatedUsers: (User & { status: string })[]) => {
@@ -140,9 +166,14 @@ const handleSearch = (event: Event) => {
   UserController.searchUsers(query, updateUsers)
 }
 
+// Apply sorting whenever sort field or direction changes
+watch([sortField, sortDirection], () => {
+  UserController.setSortOptions({ field: sortField.value, direction: sortDirection.value })
+})
+
 onMounted(() => {
-  // Start periodic updates every 10 seconds
-  UserController.startUserListUpdate(updateUsers, 10000)
+  // Start periodic updates every 30 seconds
+  UserController.startUserListUpdate(updateUsers, 30000)
 })
 
 onUnmounted(() => {
@@ -162,14 +193,37 @@ onUnmounted(() => {
       </div>
 
       <div class="bg-surface rounded-lg shadow">
-        <div class="p-4">
-          <input 
-            type="text" 
-            placeholder="Search users..."
-            class="w-full rounded-md border border-table p-2"
-            :value="searchQuery"
-            @input="handleSearch"
-          >
+        <div class="p-4 space-y-4">
+          <div class="flex gap-4">
+            <div class="flex-1">
+              <input 
+                type="text" 
+                placeholder="Search users..."
+                class="w-full rounded-md border border-table p-2"
+                :value="searchQuery"
+                @input="handleSearch"
+              >
+            </div>
+          </div>
+          
+          <div class="flex gap-4">
+            <div class="w-48">
+              <Dropdown
+                v-model="sortField"
+                :options="sortOptions"
+                placeholder="Sort by..."
+                label="Sort Field"
+              />
+            </div>
+            <div class="w-48">
+              <Dropdown
+                v-model="sortDirection"
+                :options="directionOptions"
+                placeholder="Direction..."
+                label="Sort Direction"
+              />
+            </div>
+          </div>
         </div>
         
         <div v-if="loading" class="p-4 text-center text-text-light">
